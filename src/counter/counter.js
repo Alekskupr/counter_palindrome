@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import './counter.css';
 
-import './App.css';
 
-export default class App extends Component {
+export default class Counter extends Component {
   constructor() {
     super();
     this.state = {
@@ -21,6 +21,8 @@ export default class App extends Component {
   palindromeTest = () => {
     clearTimeout(this.timer);
     let str = this.state.counter;
+    console.log(str);
+    
     this.setState({
       palindrome:
         str ===
@@ -45,7 +47,7 @@ export default class App extends Component {
         <div className="container">
           <button className="forkButton" onDoubleClick={this.palindromeTest} onClick={this.counterIncrease}></button>
           <div className="counter">
-            <p class="counterText">{this.state.counter}</p>
+            <p className="counterText">{this.state.counter}</p>
           </div>
         </div>
 
