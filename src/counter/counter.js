@@ -2,16 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './counter.css';
 import { addOneAC, palindromeResultAC } from '../redux/actions';
+import Modal from '../modal/modal';
 
 class Counter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: '0',
-      palindrome: false,
-    };
-  }
-
   counterIncrease = () => {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
@@ -49,14 +42,7 @@ class Counter extends Component {
           </div>
         </div>
 
-        <div className="modal">
-          <div className="modal_content">
-            <span onClick={this.closeModal} className="close">
-              X
-            </span>
-            <p className="answer">{palindrome ? 'Это палиндром!!!' : 'Не, это не палиндром'}</p>
-          </div>
-        </div>
+        <Modal palindrome = {palindrome}/>
       </div>
     );
   }

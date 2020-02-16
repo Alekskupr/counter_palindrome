@@ -34,31 +34,3 @@
   margin: 0;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  margin: 0 auto;
-  width: 30%;
-  height: 30%;
-  z-index: 1000;
-  color: white;
-}
-
-.modal .modal_content {
-  background-color: grey;
-  margin: 0 auto;
-  border: 1px solid black;
-  z-index: 1001;
-}
-
-.close {
-  
-  font-size: 30px;
-  font-weight: bold;
-  float: right;
-}
-
-.answer {
-  font-size: 30px;
-  font-weight: bold;
-}
