@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './counter.css';
+import { addOneAC, palindromeResultAC } from '../redux/actions';
 
-
-export default class Counter extends Component {
-  constructor() {
-    super();
+class Counter extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       counter: '0',
       palindrome: false,
@@ -14,23 +15,20 @@ export default class Counter extends Component {
   counterIncrease = () => {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      this.setState({ counter: (+ this.state.counter + 1).toString() });
+      this.props.sendCounter((+this.props.counter + 1).toString());
     }, 250);
   };
 
   palindromeTest = () => {
     clearTimeout(this.timer);
-    let str = this.state.counter;
-    console.log(str);
-    
-    this.setState({
-      palindrome:
-        str ===
+    let str = this.props.counter;
+    this.props.sendResultPalindrome(
+      str ===
         str
           .split('')
           .reverse()
           .join(''),
-    });
+    );
     const modal = document.getElementsByClassName('modal')[0];
     modal.style.display = 'block';
   };
@@ -41,13 +39,13 @@ export default class Counter extends Component {
   };
 
   render() {
-    const palindrome = this.state.palindrome;
+    const palindrome = this.props.palindrome;
     return (
       <div className="App">
         <div className="container">
           <button className="forkButton" onDoubleClick={this.palindromeTest} onClick={this.counterIncrease}></button>
           <div className="counter">
-            <p className="counterText">{this.state.counter}</p>
+            <p className="counterText">{this.props.counter}</p>
           </div>
         </div>
 
@@ -63,3 +61,19 @@ export default class Counter extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    counter: state.counter,
+    palindrome: state.palindrome,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    sendCounter: counter => dispatch(addOneAC(counter)),
+    sendResultPalindrome: result => dispatch(palindromeResultAC(result)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
